@@ -20,18 +20,18 @@ export class ShipService {
     return this.shipRepository.find()
   }
 
-  findOne (id: number) {
+  findOne (id: string) {
     return this.shipRepository.findOneOrFail(id)
   }
 
-  async update (id: number, updateShipDto: UpdateShipDto): Promise<Ship> {
+  async update (id: string, updateShipDto: UpdateShipDto): Promise<Ship> {
     let toUpdate = await this.shipRepository.findOneOrFail(id)
     let updated = Object.assign(toUpdate, updateShipDto)
     const ship = await this.shipRepository.save(updated);
     return ship
   }
 
-  remove (id: number) {
+  remove (id: string) {
     return this.shipRepository.delete(id)
   }
 }

@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common'
 import { ShipService } from './ship.service'
@@ -30,16 +29,16 @@ export class ShipController {
 
   @Get(':id')
   findOne (@Param('id') id: string) {
-    return this.shipService.findOne(+id)
+    return this.shipService.findOne(id)
   }
 
   @Patch(':id')
   update (@Param('id') id: string, @Body() updateShipDto: UpdateShipDto) {
-    return this.shipService.update(+id, updateShipDto)
+    return this.shipService.update(id, updateShipDto)
   }
 
   @Delete(':id')
   remove (@Param('id') id: string) {
-    return this.shipService.remove(+id)
+    return this.shipService.remove(id)
   }
 }
