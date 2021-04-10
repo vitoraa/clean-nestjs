@@ -1,0 +1,38 @@
+version: '3'
+services: 
+  postgres:
+    container_name: postgres-container
+    image: postgres:13
+    restart: always
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+    ports: 
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=cleannestjs
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "vitor@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
+    ports:
+      - "16543:80"
+  nestjs-api:
+    container_name: nestjs-api
+    image: node:14
+    working_dir: /usr/src/clean-nestjs
+    restart: always
+    command: bash -c "npm install -g @nestjs/cli && npm install --only=prod && npm run start:debug"
+    environment: 
+      - PG_URL=postgresql://postgres:postgres@postgres:5432/cleannestjs
+    volumes: 
+      - .:/usr/src/clean-nestjs
+    ports:
+      - "3000:3000"
+    depends_on: 
+      - postgres
+    links: 
+      - postgres
+
