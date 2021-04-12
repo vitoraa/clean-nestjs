@@ -1,8 +1,13 @@
-import { IsEmail, IsNotEmpty, Matches, MaxLength, MinLength } from "class-validator";
+import { IsEmail, IsIn, IsNotEmpty, Matches, MaxLength, MinLength } from "class-validator";
 import { constant } from "../../constants";
 import { Match } from "../../validations/match.validation";
 import { UniqueOnDatabase } from "../../validations/unique.validation";
 import { User } from "../entities/user.entity";
+
+enum ROLES {
+  USER = 'USER',
+  ADMIN = 'ADMIN'
+}
 
 export class CreateUserDto {
   @MaxLength(200)
